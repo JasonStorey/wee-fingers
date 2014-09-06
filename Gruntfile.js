@@ -17,6 +17,9 @@ module.exports = function(grunt) {
                     wrap: {
                         startFile: 'src/start.frag',
                         endFile: 'src/end.frag'
+                    },
+                    paths: {
+                        Phaser: '../node_modules/Phaser/build/custom/phaser-arcade-physics.min'
                     }
                 }
             }
