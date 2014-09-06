@@ -12,5 +12,8 @@
     "almond": "^0.3.0",
     "grunt": "^0.4.5",
     "grunt-contrib-requirejs": "^0.4.4"
+  },
+  "dependencies": {
+    "Phaser": "git+ssh://git@github.com:photonstorm/phaser.git"
   }
 }
