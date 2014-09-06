@@ -9,8 +9,13 @@ define(['Phaser'], function(Phaser) {
         });
     }
 
-    function preload() {}
-    function create() {}
+    function preload() {
+        game.stage.backgroundColor = '#ffffff';
+        game.load.image('fingerprint', './assets/fingerprint_62x90.png');
+    }
+    function create() {
+        game.add.sprite(0, 360, 'fingerprint');
+    }
     function update() {}
 
     return {
