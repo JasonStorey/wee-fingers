@@ -1,6 +1,9 @@
 define([], function() {
-    function Player(game) {
+    function Player(game, name) {
         this.game = game;
+        this.name = name;
+        this.active = false;
+        this.tapped = new Phaser.Signal();
     }
 
     Player.prototype.init = function init() {
@@ -8,8 +11,22 @@ define([], function() {
     };
 
     Player.prototype.draw = function draw(x, y) {
-        this.game.add.sprite(x, y, 'fingerprint');
+        this.sprite = this.game.add.sprite(x, y, 'fingerprint');
+        this.sprite.inputEnabled = true;
+        this.sprite.events.onInputUp.add(onInputUp.bind(this), this);
     };
+
+    Player.prototype.setActive = function setActive(state) {
+        this.active = state;
+        if(state)
+            console.log(this.name + ' Active');
+    };
+
+    function onInputUp() {
+        if(this.active) {
+            this.tapped.dispatch(this);
+        }
+    }
 
     return Player;
 });
