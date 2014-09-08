@@ -34,6 +34,11 @@ define(['Phaser', 'player'], function(Phaser, Player) {
                 activateNextPlayer();
             });
 
+            player.doubleTapped.add(function(tappedPlayer) {
+                tappedPlayer.setActive(false);
+                activatePreviousPlayer();
+            });
+
             player.draw(100 * index, 0);
         });
     }
@@ -42,6 +47,14 @@ define(['Phaser', 'player'], function(Phaser, Player) {
         currentPlayerIndex++;
         if(currentPlayerIndex === players.length) {
             currentPlayerIndex = 0;
+        }
+        players[currentPlayerIndex].setActive(true);
+    }
+
+    function activatePreviousPlayer() {
+        currentPlayerIndex--;
+        if(currentPlayerIndex === -1) {
+            currentPlayerIndex = players.length - 1;
         }
         players[currentPlayerIndex].setActive(true);
     }
