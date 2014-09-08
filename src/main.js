@@ -1,5 +1,6 @@
-define(['Phaser'], function(Phaser) {
-    var game;
+define(['Phaser', 'player'], function(Phaser, Player) {
+    var game,
+        player;
 
     function init(containerElement) {
         game = new Phaser.Game(800, 600, Phaser.AUTO, containerElement, {
@@ -7,15 +8,19 @@ define(['Phaser'], function(Phaser) {
             create: create,
             update: update
         });
+
+        player = new Player(game);
     }
 
     function preload() {
         game.stage.backgroundColor = '#ffffff';
-        game.load.image('fingerprint', './assets/fingerprint_62x90.png');
+        player.init();
     }
+
     function create() {
-        game.add.sprite(0, 360, 'fingerprint');
+        player.draw();
     }
+
     function update() {}
 
     return {
