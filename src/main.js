@@ -1,6 +1,6 @@
 define(['Phaser', 'player'], function(Phaser, Player) {
     var game,
-        player;
+        players = [];
 
     function init(containerElement) {
         game = new Phaser.Game(800, 600, Phaser.AUTO, containerElement, {
@@ -9,16 +9,21 @@ define(['Phaser', 'player'], function(Phaser, Player) {
             update: update
         });
 
-        player = new Player(game);
+        players.push(new Player(game));
+        players.push(new Player(game));
     }
 
     function preload() {
         game.stage.backgroundColor = '#ffffff';
-        player.init();
+        players.forEach(function(player) {
+            player.init();
+        });
     }
 
     function create() {
-        player.draw();
+        players.forEach(function(player, index) {
+            player.draw(100 * index, 0);
+        });
     }
 
     function update() {}

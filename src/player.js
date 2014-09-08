@@ -7,8 +7,8 @@ define([], function() {
         this.game.load.image('fingerprint', './assets/fingerprint_62x90.png');
     };
 
-    Player.prototype.draw = function draw() {
-        this.game.add.sprite(0, 360, 'fingerprint');
+    Player.prototype.draw = function draw(x, y) {
+        this.game.add.sprite(x, y, 'fingerprint');
     };
 
     return Player;
