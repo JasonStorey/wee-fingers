@@ -8,9 +8,9 @@ define(['Phaser'], function(Phaser) {
         this.numOfTaps = 0;
     }
 
-    Player.prototype.init = function init() {
+    Player.prototype.load = function load() {
         this.game.load.image('fingerprint', './assets/fingerprint_62x90.png');
-        this.timer = this.game.time.create(false);
+        this.timer = this.game.time.create(false); // TODO: move this somewhere appropriate... fails in constructor.
     };
 
     Player.prototype.draw = function draw(x, y) {
