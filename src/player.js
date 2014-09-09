@@ -1,7 +1,8 @@
 define(['Phaser'], function(Phaser) {
-    function Player(game, name) {
+    function Player(game, config) {
+        this.config = config;
         this.game = game;
-        this.name = name;
+        this.name = config.name;
         this.active = false;
         this.tapped = new Phaser.Signal();
         this.numOfTaps = 0;
@@ -15,7 +16,10 @@ define(['Phaser'], function(Phaser) {
     Player.prototype.draw = function draw(x, y) {
         this.sprite = this.game.add.sprite(x, y, 'fingerprint');
         this.sprite.inputEnabled = true;
-        this.sprite.events.onInputDown.add(onInputDown.bind(this), this);
+        this.sprite.events.onInputDown.add(tapHandler.bind(this), this);
+
+        this.key = this.game.input.keyboard.addKey(this.config.key);
+        this.key.onDown.add(tapHandler, this);
     };
 
     Player.prototype.setActive = function setActive(state) {
@@ -25,7 +29,7 @@ define(['Phaser'], function(Phaser) {
         }
     };
 
-    function onInputDown(sprite, pointer) {
+    function tapHandler() {
         if(!this.active) {
             console.log(this.name + ' Jonesed it.');
             return;

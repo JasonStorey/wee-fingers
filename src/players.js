@@ -1,12 +1,23 @@
-define(['player'], function(Player) {
+define(['Phaser', 'player'], function(Phaser, Player) {
     var players = [],
         currentPlayerIndex = 0,
         playerIterator = 1;
 
     function init(game) {
-        players.push(new Player(game, 'Player 1'));
-        players.push(new Player(game, 'Player 2'));
-        players.push(new Player(game, 'Player 3'));
+        var KEYS = [
+            Phaser.Keyboard.ONE,
+            Phaser.Keyboard.TWO,
+            Phaser.Keyboard.THREE,
+            Phaser.Keyboard.FOUR,
+            Phaser.Keyboard.FIVE
+        ];
+
+        for(var i = 0; i < 5; i++) {
+            players.push(new Player(game, {
+                name:'Player ' + (i + 1),
+                key: KEYS[i]
+            }));
+        }
     }
 
     function load() {
