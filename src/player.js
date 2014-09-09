@@ -4,7 +4,6 @@ define(['Phaser'], function(Phaser) {
         this.name = name;
         this.active = false;
         this.tapped = new Phaser.Signal();
-        this.doubleTapped = new Phaser.Signal();
         this.numOfTaps = 0;
     }
 
@@ -43,16 +42,8 @@ define(['Phaser'], function(Phaser) {
     function onTapTimerComplete() {
         this.timer.stop(true);
         this.tapTimerEvent = null;
-        dispatchTapEvent.call(this, this.numOfTaps);
+        this.tapped.dispatch(this, this.numOfTaps);
         this.numOfTaps = 0;
-    }
-
-    function dispatchTapEvent(n) {
-        if(n === 2) {
-            this.doubleTapped.dispatch(this);
-        } else {
-            this.tapped.dispatch(this);
-        }
     }
 
     return Player;

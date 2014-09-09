@@ -1,6 +1,7 @@
 define(['player'], function(Player) {
     var players = [],
-        currentPlayerIndex = 0;
+        currentPlayerIndex = 0,
+        playerIterator = 1;
 
     function init(game) {
         players.push(new Player(game, 'Player 1'));
@@ -20,33 +21,29 @@ define(['player'], function(Player) {
                 player.setActive(true);
             }
 
-            player.tapped.add(function(tappedPlayer) {
+            player.tapped.add(function(tappedPlayer, n) {
                 tappedPlayer.setActive(false);
-                activateNextPlayer();
-            });
-
-            player.doubleTapped.add(function(tappedPlayer) {
-                tappedPlayer.setActive(false);
-                activatePreviousPlayer();
+                if(n === 2) {
+                    playerIterator *= -1;
+                }
+                activateNextPlayer(playerIterator);
             });
 
             player.draw(100 * index, 0);
         });
     }
 
-    function activateNextPlayer() {
-        currentPlayerIndex++;
+    function activateNextPlayer(iterator) {
+        currentPlayerIndex += iterator;
+
         if(currentPlayerIndex === players.length) {
             currentPlayerIndex = 0;
         }
-        players[currentPlayerIndex].setActive(true);
-    }
 
-    function activatePreviousPlayer() {
-        currentPlayerIndex--;
         if(currentPlayerIndex === -1) {
             currentPlayerIndex = players.length - 1;
         }
+
         players[currentPlayerIndex].setActive(true);
     }
 
